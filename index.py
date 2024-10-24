@@ -25,11 +25,13 @@ class Calculadora(): # Classe: Uma classe é como um molde para criar objetos. N
                 if segundo_numero in primeiro_numero:
                     return
             self.current = primeiro_numero + segundo_numero
-        self.display(self.current)
+        self.display(self.current) 
+
         
     def display(self, value):
-        input_entrada.delete(0,END)
-        input_entrada.insert(0, value)
+        input_entrada.delete(0, END)
+        input_entrada.insert(0, value) 
+    
         
     def soma_do_total(self):
         self.result = True
@@ -86,6 +88,10 @@ class Calculadora(): # Classe: Uma classe é como um molde para criar objetos. N
     def limpar_tudo(self):
         self.limpar()
         self.total = 0
+        
+    def pressionar(self, simbolo):
+        self.current = input_entrada.get() + simbolo
+        self.display(self.current)
        
     def raiz_quadrada(self):
         self.result = False
@@ -165,25 +171,25 @@ botao_cosseno.grid(row=2, column=2, pady=1)
 botao_tangente= Button(quadro_principal, width=6, height=2, font=('arial', 16, 'bold'), bd=4, text='Tan', bg='cadetblue', command= valor_adicionado.tan)
 botao_tangente.grid(row=2, column=3, pady=1)
 
-botao_adicionar = Button(quadro_principal, width=6, height=2, font=('arial', 16, 'bold'), bd=4, text='+', bg='cadetblue', command= lambda:valor_adicionado.operacao('add'))
+botao_adicionar = Button(quadro_principal, width=6, height=2, font=('arial', 16, 'bold'), bd=4, text='+', bg='cadetblue', command= lambda:[valor_adicionado.operacao('add'), valor_adicionado.pressionar('+')])
 botao_adicionar.grid(row=3, column=0, pady=1)
 
-botao_subtrair = Button(quadro_principal, width=6, height=2, font=('arial', 16, 'bold'), bd=4, text='-', bg='cadetblue', command= lambda:valor_adicionado.operacao('sub'))
+botao_subtrair = Button(quadro_principal, width=6, height=2, font=('arial', 16, 'bold'), bd=4, text='-', bg='cadetblue', command= lambda:[valor_adicionado.operacao('sub'), valor_adicionado.pressionar('-')])
 botao_subtrair.grid(row=3, column=1, pady=1)
 
-botao_multiplicar = Button(quadro_principal, width=6, height=2, font=('arial', 16, 'bold'), bd=4, text='×', bg='cadetblue', command= lambda:valor_adicionado.operacao('mult'))
+botao_multiplicar = Button(quadro_principal, width=6, height=2, font=('arial', 16, 'bold'), bd=4, text='×', bg='cadetblue', command= lambda:[valor_adicionado.operacao('mult'), valor_adicionado.pressionar('x')])
 botao_multiplicar.grid(row=3, column=2, pady=1)
 
-botao_dividir = Button(quadro_principal, width=6, height=2, font=('arial', 16, 'bold'), bd=4, text='÷', bg='cadetblue', command= lambda:valor_adicionado.operacao('divide'))
+botao_dividir = Button(quadro_principal, width=6, height=2, font=('arial', 16, 'bold'), bd=4, text='÷', bg='cadetblue', command= lambda:[valor_adicionado.operacao('divide'), valor_adicionado.pressionar('÷')])
 botao_dividir.grid(row=3, column=3, pady=1)
 
-botao_log = Button(quadro_principal, width=6, height=2, font=('arial', 16, 'bold'), bd=4, text='log', bg='cadetblue', command= lambda:valor_adicionado.operacao('log'))
+botao_log = Button(quadro_principal, width=6, height=2, font=('arial', 16, 'bold'), bd=4, text='log', bg='cadetblue', command= lambda:[valor_adicionado.operacao('log')])
 botao_log.grid(row=4, column=3, pady=1)
 
 botao_expoente_quadrado = Button(quadro_principal, width=6, height=2, font=('arial', 16, 'bold'), bd=4, text='x²', bg='cadetblue', command= lambda:valor_adicionado.operacao('squared'))
 botao_expoente_quadrado.grid(row=5, column=3, pady=1)
 
-botao_expoente = Button(quadro_principal, width=6, height=2, font=('arial', 16, 'bold'), bd=4, text='^', bg='cadetblue', command= lambda:valor_adicionado.operacao('expo'))
+botao_expoente = Button(quadro_principal, width=6, height=2, font=('arial', 16, 'bold'), bd=4, text='^', bg='cadetblue', command= lambda:[valor_adicionado.operacao('expo'), valor_adicionado.pressionar('^')])
 botao_expoente.grid(row=6, column=3, pady=1)
 
 botao_mod = Button(quadro_principal, width=6, height=2, font=('arial', 16, 'bold'), bd=4, text='mod', bg='cadetblue', command= lambda:valor_adicionado.operacao('mod'))
