@@ -9,23 +9,22 @@ class Calculadora(): # Classe: Uma classe é como um molde para criar objetos. N
         self.check_sum = False # Indica se uma operação de soma está em andamento (inicialmente False).
         self.op = '' # Armazena a operação matemática escolhida (começa vazio).
         self.result = False # Indica se já foi calculado um resultado (começa como falso).
-        
     
+        
     def numero_enter(self, num):
-        self.result= False # Indica que um novo resultado não foi calculado ainda.
+        self.result= False
         primeiro_numero = input_entrada.get()
-        #print(primeiro_numero) 
         segundo_numero = str(num)
-        #print(segundo_numero)
-        if self.input_value:
-            self.current = segundo_numero
-            self.input_value = False
+        
+        # Se o primeiro número for '0' e o usuário inserir outro número, removemos o '0'
+        if primeiro_numero == '0':
+            primeiro_numero = ''
+        if self.op == 'mod': 
+            self.current = primeiro_numero + "mod" + segundo_numero 
         else:
-            if segundo_numero == '.':
-                if segundo_numero in primeiro_numero:
-                    return
+            # Concatenar o segundo número com o que já está no display
             self.current = primeiro_numero + segundo_numero
-        self.display(self.current) 
+        self.display(self.current)
 
         
     def display(self, value):
@@ -35,11 +34,18 @@ class Calculadora(): # Classe: Uma classe é como um molde para criar objetos. N
         
     def soma_do_total(self):
         self.result = True
-        self.current = float(self.current)
+        try:
+            expressao = input_entrada.get().replace('÷', '/').replace('×', '*').replace('^', '**').replace('x', '*').replace('mod', '%')
+            self.current = eval(expressao)
+        except:
+            self.current = float(self.current)  # Caso não seja uma expressão matemática, converte diretamente para float
         if self.check_sum == True:
             self.validar_funcao()
         else:
-            self.total = float(input_entrada.get())
+            self.total = self.current
+        self.display(self.total)
+        
+
     
     def validar_funcao(self):
         if self.op == 'add':
@@ -55,9 +61,10 @@ class Calculadora(): # Classe: Uma classe é como um molde para criar objetos. N
         if self.op == 'expo':
             self.total **= self.current
         if self.op == 'squared':
-            self.total = self.current ** 2
+            self.current = self.current ** 2
         if self.op == 'log':
-            self.total == math.log(self.current)
+            self.current = math.log10(self.current)
+        self.total = self.current 
         self.input_value = True
         self.check_sum = False
         self.display(self.total)
@@ -72,6 +79,7 @@ class Calculadora(): # Classe: Uma classe é como um molde para criar objetos. N
         self.check_sum = True
         self.op = op
         self.result = False # Define self.result = False para indicar que o resultado ainda não foi calculado.
+        
     
     def apagar(self):
         tamanho_numero = len(input_entrada.get())
@@ -100,17 +108,17 @@ class Calculadora(): # Classe: Uma classe é como um molde para criar objetos. N
         
     def sin(self):
         self.result = False
-        self.current = math.sen(math.radians(float(input_entrada())))
+        self.current = math.sin(math.radians(float(input_entrada.get())))
         self.display(self.current)
         
     def cos(self):
         self.result = False
-        self.current = math.cos(math.radians(float(input_entrada())))
+        self.current = math.cos(math.radians(float(input_entrada.get())))
         self.display(self.current)
     
     def tan(self):
         self.result = False
-        self.current = math.tan(math.radians(float(input_entrada())))
+        self.current = math.tan(math.radians(float(input_entrada.get())))
         self.display(self.current)
     
     def escrever_pi(self):
@@ -177,7 +185,7 @@ botao_adicionar.grid(row=3, column=0, pady=1)
 botao_subtrair = Button(quadro_principal, width=6, height=2, font=('arial', 16, 'bold'), bd=4, text='-', bg='cadetblue', command= lambda:[valor_adicionado.operacao('sub'), valor_adicionado.pressionar('-')])
 botao_subtrair.grid(row=3, column=1, pady=1)
 
-botao_multiplicar = Button(quadro_principal, width=6, height=2, font=('arial', 16, 'bold'), bd=4, text='×', bg='cadetblue', command= lambda:[valor_adicionado.operacao('mult'), valor_adicionado.pressionar('x')])
+botao_multiplicar = Button(quadro_principal, width=6, height=2, font=('arial', 16, 'bold'), bd=4, text='×', bg='cadetblue', command= lambda:[valor_adicionado.operacao('mult'), valor_adicionado.pressionar('×')])
 botao_multiplicar.grid(row=3, column=2, pady=1)
 
 botao_dividir = Button(quadro_principal, width=6, height=2, font=('arial', 16, 'bold'), bd=4, text='÷', bg='cadetblue', command= lambda:[valor_adicionado.operacao('divide'), valor_adicionado.pressionar('÷')])
@@ -206,3 +214,4 @@ botao_igual.grid(row=7, column=3, pady=1)
 
 
 janela.mainloop()
+
